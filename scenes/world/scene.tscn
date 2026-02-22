@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://5syolhhmksjl"]
+
+[ext_resource type="PackedScene" uid="uid://dti5m6wc42ubs" path="res://scenes/player/scene.tscn" id="1_rmx8x"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_th78l"]
+size = Vector2(10, 10)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_th78l"]
+points = PackedVector3Array(-5, 0, -5, -5, 0, 5, 5, 0, -5, 5, 0, 5)
+
+[node name="World" type="Node3D" unique_id=1348487105]
+
+[node name="Sun" type="DirectionalLight3D" parent="." unique_id=1316972284]
+transform = Transform3D(-0.6493247, -0.37542072, 0.66139, 0.006817406, 0.8667567, 0.49868473, -0.76048076, 0.32831728, -0.56024706, 4.871155, 2.4852488, -4.9991665)
+light_angular_distance = 0.5
+shadow_enabled = true
+directional_shadow_blend_splits = true
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1797554357]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1198732282]
+mesh = SubResource("PlaneMesh_th78l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=144680472]
+shape = SubResource("ConvexPolygonShape3D_th78l")
+
+[node name="Player" parent="." unique_id=13862576 instance=ExtResource("1_rmx8x")]

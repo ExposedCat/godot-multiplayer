@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://7diwfasegod"]
+
+[ext_resource type="Script" uid="uid://dspgghkfi6sd" path="res://scenes/main-menu/script.gd" id="1_3jxos"]
+[ext_resource type="PackedScene" uid="uid://5syolhhmksjl" path="res://scenes/world/scene.tscn" id="2_m1jbe"]
+
+[node name="Main Menu" type="Control" unique_id=1687610568]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3jxos")
+world_scene = ExtResource("2_m1jbe")
+
+[node name="Host" type="Button" parent="." unique_id=1428105549]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -15.5
+offset_right = 22.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Host"
+
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
