@@ -28,3 +28,7 @@ NetworkManager="*uid://dypv2dgyr3y2l"
 
 rendering_device/driver.windows="d3d12"
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=4
+
+[steam]
+
+initialization/app_id=480
