@@ -1,28 +1,49 @@
 extends CharacterBody3D
 
+@export var name_label: Label3D
+@export var camera: Camera3D
 
-const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
+const SPEED := 2.0
+const JUMP_VELOCITY := 2.5
+
+var player_id: int = -1
+var _is_local := false
+
+
+func prepare(data: Dictionary):
+	player_id = int(data["peer_id"])
+	set_multiplayer_authority(player_id)
+	name = str(player_id)
+
+
+func _ready() -> void:
+	name_label.text = str(player_id)
+
+	_is_local = (multiplayer.get_unique_id() == player_id)
+
+	camera.current = _is_local
+	set_process_input(_is_local)
+	set_physics_process(_is_local)
+
+	if _is_local:
+		name_label.visible = false
 
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if direction:
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+	var dir := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+
+	if dir != Vector3.ZERO:
+		velocity.x = dir.x * SPEED
+		velocity.z = dir.z * SPEED
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0.0, SPEED)
+		velocity.z = move_toward(velocity.z, 0.0, SPEED)
 
 	move_and_slide()

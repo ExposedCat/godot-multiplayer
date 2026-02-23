@@ -10,8 +10,15 @@ height = 0.5
 radius = 0.1
 height = 0.5
 
-[node name="Player" type="CharacterBody3D" unique_id=13862576]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xvkdw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D" unique_id=13862576 node_paths=PackedStringArray("name_label", "camera")]
 script = ExtResource("1_xvkdw")
+name_label = NodePath("Label3D")
+camera = NodePath("Camera")
 
 [node name="Mesh" type="MeshInstance3D" parent="." unique_id=1471058107]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
@@ -23,3 +30,12 @@ shape = SubResource("CapsuleShape3D_3u2kf")
 
 [node name="Camera" type="Camera3D" parent="." unique_id=1939469741]
 transform = Transform3D(1, 0, 0, 0, 0.86308724, 0.50505495, 0, -0.50505495, 0.86308724, 0, 1.3493773, 1.076988)
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1133668547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6447773, 0)
+billboard = 1
+text = "Name"
+font_size = 24
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1139274811]
+replication_config = SubResource("SceneReplicationConfig_xvkdw")
