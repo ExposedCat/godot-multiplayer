@@ -47,3 +47,8 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0.0, SPEED)
 
 	move_and_slide()
+
+
+func _on_interaction_available(body: Node3D) -> void:
+	if body.is_in_group("interactable"):
+		body.interact()
