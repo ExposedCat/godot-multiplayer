@@ -23,6 +23,7 @@ NetworkManager="*uid://dypv2dgyr3y2l"
 [global_group]
 
 interactable=""
+player=""
 
 [physics]
 

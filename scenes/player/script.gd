@@ -50,5 +50,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_interaction_available(body: Node3D) -> void:
+	if not _is_local:
+		return
+
 	if body.is_in_group("interactable"):
-		body.interact()
+		body.interact({})

@@ -1,10 +1,10 @@
-extends RigidBody3D
+extends RigidBase
 
-var cooldown = Cooldown.new(1000)
+func _init():
+	super (1000)
 
-func interact():
+func do_interact(payload: Dictionary) -> void:
+	print("Interacting with cube", payload)
 	if cooldown.fire():
-		position.y += 1
-
-func _process(_delta: float) -> void:
-	print(position.y)
+		if multiplayer.is_server():
+			position.y += 5

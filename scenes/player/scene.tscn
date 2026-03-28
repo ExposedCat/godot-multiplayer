@@ -17,7 +17,7 @@ properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 
-[node name="Player" type="CharacterBody3D" unique_id=13862576 node_paths=PackedStringArray("name_label", "camera")]
+[node name="Player" type="CharacterBody3D" unique_id=13862576 node_paths=PackedStringArray("name_label", "camera") groups=["player"]]
 script = ExtResource("1_xvkdw")
 name_label = NodePath("Label3D")
 camera = NodePath("Camera")
