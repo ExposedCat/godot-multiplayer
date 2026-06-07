@@ -3,8 +3,8 @@ class_name InteractableBase extends Node3D
 var cooldown: Cooldown
 
 
-func _init(cooldown_duration: float = 0.0):
-	cooldown = Cooldown.new(cooldown_duration)
+func _init(cooldown_duration_seconds: float = 0.0):
+	cooldown = Cooldown.new(cooldown_duration_seconds)
 
 
 func do_interact(_payload: Dictionary) -> void:
