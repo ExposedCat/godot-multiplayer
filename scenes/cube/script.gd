@@ -4,7 +4,9 @@ func _init():
 	super (1000)
 
 func do_interact(payload: Dictionary) -> void:
-	print("Interacting with cube", payload)
+	if not multiplayer.is_server():
+		return
+
 	if cooldown.fire():
-		if multiplayer.is_server():
-			position.y += 5
+		print("Interacting with cube", payload)
+		position.y += 5
