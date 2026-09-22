@@ -1,5 +1,9 @@
 class_name InteractableBase extends Node3D
 
+## Max distance in meters between the requesting player and this object,
+## checked on the server. 0 disables the check.
+@export var interaction_range := 2.0
+
 var cooldown: Cooldown
 
 
@@ -9,6 +13,17 @@ func _init(cooldown_duration_seconds: float = 0.0):
 
 func do_interact(_payload: Dictionary) -> void:
 	pass
+
+
+## Server-side check run before an interaction is accepted. Requests come from
+## clients, so don't trust them: override this to add game rules and call
+## super() to keep the range check.
+func can_interact(caller: Node3D, _payload: Dictionary) -> bool:
+	if caller == null:
+		return false
+	if interaction_range <= 0.0:
+		return true
+	return caller.global_position.distance_to(global_position) <= interaction_range
 
 
 func interact(payload: Dictionary = {}) -> void:
@@ -21,6 +36,9 @@ func _interact_request(payload: Dictionary = {}) -> void:
 		return
 
 	var sender_id := multiplayer.get_remote_sender_id()
+	if not can_interact(_resolve_sender_node(sender_id), payload):
+		return
+
 	var authoritative_payload := _build_authoritative_payload(payload, sender_id)
 	rpc("_execute_interaction", authoritative_payload)
 

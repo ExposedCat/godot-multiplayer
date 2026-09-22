@@ -1,9 +1,8 @@
 [gd_scene format=3 uid="uid://7diwfasegod"]
 
 [ext_resource type="Script" uid="uid://dspgghkfi6sd" path="res://scenes/main-menu/script.gd" id="1_3jxos"]
-[ext_resource type="PackedScene" uid="uid://5syolhhmksjl" path="res://scenes/world/scene.tscn" id="2_m1jbe"]
 
-[node name="Main Menu" type="Control" unique_id=1687610568 node_paths=PackedStringArray("lobbies", "refresh_timer")]
+[node name="Main Menu" type="Control" unique_id=1687610568 node_paths=PackedStringArray("lobbies", "refresh_timer", "host_button", "status_label", "direct_connect", "address_input", "join_address_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,9 +10,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3jxos")
-world_scene = ExtResource("2_m1jbe")
 lobbies = NodePath("CenterContainer/VBoxContainer/Lobbies Container")
 refresh_timer = NodePath("Lobbies Refresh Timer")
+host_button = NodePath("CenterContainer/VBoxContainer/Host")
+status_label = NodePath("CenterContainer/VBoxContainer/Status")
+direct_connect = NodePath("CenterContainer/VBoxContainer/Direct Connect")
+address_input = NodePath("CenterContainer/VBoxContainer/Direct Connect/Address")
+join_address_button = NodePath("CenterContainer/VBoxContainer/Direct Connect/Join")
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1190608247]
 layout_mode = 1
@@ -24,11 +27,26 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1222023516]
+custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 
 [node name="Host" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1428105549]
 layout_mode = 2
 text = "Host"
+
+[node name="Direct Connect" type="HBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=1573920461]
+visible = false
+layout_mode = 2
+
+[node name="Address" type="LineEdit" parent="CenterContainer/VBoxContainer/Direct Connect" unique_id=1840273915]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "127.0.0.1"
+placeholder_text = "Host address (host or host:port)"
+
+[node name="Join" type="Button" parent="CenterContainer/VBoxContainer/Direct Connect" unique_id=1302846671]
+layout_mode = 2
+text = "Join"
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=682505652]
 layout_mode = 2
@@ -36,6 +54,12 @@ text = "Lobbies:"
 
 [node name="Lobbies Container" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=409026675]
 layout_mode = 2
+
+[node name="Status" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1964410382]
+visible = false
+layout_mode = 2
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="Lobbies Refresh Timer" type="Timer" parent="." unique_id=1147088935]
 autostart = true

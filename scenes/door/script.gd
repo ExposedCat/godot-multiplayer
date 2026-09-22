@@ -19,10 +19,6 @@ const OPEN_Y_ROTATION := 90.0
 const ROTATION_DURATION := 0.2
 
 
-func _enter_tree() -> void:
-	set_multiplayer_authority(1)
-
-
 func _ready() -> void:
 	rotation_degrees.y = target_rotation_y
 
@@ -34,7 +30,11 @@ func do_interact(_payload: Dictionary) -> void:
 	if not cooldown.fire():
 		return
 
-	target_rotation_y = OPEN_Y_ROTATION if is_equal_approx(target_rotation_y, CLOSED_Y_ROTATION) else CLOSED_Y_ROTATION
+	target_rotation_y = (
+		OPEN_Y_ROTATION
+		if is_equal_approx(target_rotation_y, CLOSED_Y_ROTATION)
+		else CLOSED_Y_ROTATION
+	)
 
 
 func _animate_to_rotation(target_rotation: float) -> void:

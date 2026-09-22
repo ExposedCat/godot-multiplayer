@@ -16,6 +16,23 @@ var state := State.MENU
 func _ready():
 	set_multiplayer_authority(1)
 
+	# Scene flow follows the network session: enter the world once a lobby is
+	# ready (from the menu, a command line join or a Steam invite), and return
+	# to the menu when the session ends.
+	NetworkManager.lobby_created.connect(_on_lobby_ready)
+	NetworkManager.lobby_joined.connect(_on_lobby_ready)
+	NetworkManager.session_ended.connect(_on_session_ended)
+
+
+func _on_lobby_ready(error) -> void:
+	if error == null and state != State.WORLD:
+		change_state(State.WORLD, false)
+
+
+func _on_session_ended(_reason: String) -> void:
+	if state != State.MENU:
+		change_state(State.MENU, false)
+
 
 func change_state(to: State, broadcast: bool):
 	if broadcast and multiplayer.is_server():

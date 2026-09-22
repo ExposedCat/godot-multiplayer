@@ -10,3 +10,9 @@ var player_scene = preload("res://scenes/player/scene.tscn")
 
 func _ready() -> void:
 	playerSpawner.run()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	# Escape leaves the session; SceneManager then returns to the menu.
+	if event.is_action_pressed("ui_cancel"):
+		NetworkManager.leave_lobby()

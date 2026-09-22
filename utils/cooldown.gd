@@ -1,11 +1,11 @@
 class_name Cooldown
-extends Resource
+extends RefCounted
 
 var cooldown_until_msec := 0
 var duration_seconds := 0.0
 
 
-func _init(cooldown_duration_seconds: float) -> void:
+func _init(cooldown_duration_seconds: float = 0.0) -> void:
 	duration_seconds = cooldown_duration_seconds
 
 
